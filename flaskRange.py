@@ -45,6 +45,13 @@ def config():
         f.save(f'{abs_path}/upload/config7.txt')
         return redirect('/p/config7.txt')
 
+@app.route('/video' , methods = ['GET', 'POST'])
+def video():
+    if request.method == 'POST':
+        f = request.files['file']
+        f.save(f'{abs_path}/upload/vid.mp4')
+        return redirect('/p/vid.mp4')
+
 @app.route('/p/<filename>')
 def play(filename):
 	return send_file(f'{abs_path}/upload/{filename}', conditional = True)
