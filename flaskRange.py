@@ -2,12 +2,6 @@ from flask import Flask, send_file, redirect,  render_template, request
 import os 
 
 '''
-#youtube viewer and downloader in colab:
-!pip install yt-dlp
-!yt-dlp -f 18 -o a.mp4 https://www.youtube.com/watch?v=9TroP5mR3CM
-!curl -F file=@"a.mp4" https://epfs2.eu.pythonanywhere.com/video > /dev/null
-print("https://epfs2.eu.pythonanywhere.com/p/vid.mp4")
-
 #For running on android phone uncomment below lines an turn on hotspot on your android phone then start this script on pydroid
 import socket, fcntl, struct
 
