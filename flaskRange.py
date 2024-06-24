@@ -42,8 +42,8 @@ def uploader():
 def config():
     if request.method == 'POST':
         f = request.files['file']
-        f.save(f'{abs_path}/upload/config7.txt')
-        return redirect('/p/config7.txt')
+        f.save(f'{abs_path}/upload/{f.filename}')
+    return redirect('/')
 
 @app.route('/video' , methods = ['GET', 'POST'])
 def video():
