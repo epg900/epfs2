@@ -1,5 +1,7 @@
 from flask import Flask, send_file, redirect,  render_template, request
-import os 
+import os, time
+import pyscreenshot as pss
+from io import BytesIO
 
 '''
 #For running on android phone uncomment below lines an turn on hotspot on your android phone then start this script on pydroid
@@ -55,5 +57,24 @@ def video():
 @app.route('/p/<filename>')
 def play(filename):
 	return send_file(f'{abs_path}/upload/{filename}', conditional = True)
+
+@app.route('/screen')
+def screen():
+    return render_template('screen.html')
+
+@app.route('/screen2')
+def screen2():
+    while 1:
+        os.remove(f'{abs_path}/upload/screen.png')
+        pss.grab().save(f'{abs_path}/upload/screen.png')
+        time.sleep(0.1)
+        return redirect('/p/screen.png')
+
+@app.route('/screen.png')
+def screenshot():
+    img_buffer = BytesIO()
+    pss.grab().save(img_buffer, 'PNG', quality=50)
+    img_buffer.seek(0)
+    return send_file(img_buffer, mimetype='image/png')
 
 app.run(host="0.0.0.0")
