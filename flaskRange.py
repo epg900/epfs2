@@ -28,7 +28,7 @@ def index():
 
 @app.route('/upload')
 def dir_listing():
-    files = os.listdir(abs_path + "/upload" )
+    files = os.listdir(os.path.join(abs_path , "upload"))
     files.sort()
     return render_template('index.html', files=files)
 
@@ -62,19 +62,12 @@ def play(filename):
 def screen():
     return render_template('screen.html')
 
-@app.route('/screen2')
-def screen2():
-    while 1:
-        os.remove(f'{abs_path}/upload/screen.png')
-        pss.grab().save(f'{abs_path}/upload/screen.png')
-        time.sleep(0.1)
-        return redirect('/p/screen.png')
-
 @app.route('/screen.png')
 def screenshot():
     img_buffer = BytesIO()
     pss.grab().save(img_buffer, 'PNG', quality=50)
     img_buffer.seek(0)
     return send_file(img_buffer, mimetype='image/png')
+
 
 app.run(host="0.0.0.0")
