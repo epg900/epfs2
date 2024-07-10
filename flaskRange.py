@@ -51,8 +51,8 @@ def config():
 def video():
     if request.method == 'POST':
         f = request.files['file']
-	if os.path.exist(f'{abs_path}/upload/vid.mp4'):
-		os.remove(f'{abs_path}/upload/vid.mp4')
+	if os.path.exists(f'{abs_path}/upload/vid.mp4'):
+            os.remove(f'{abs_path}/upload/vid.mp4')
         f.save(f'{abs_path}/upload/vid.mp4')
         return redirect('/p/vid.mp4')
 
