@@ -1,5 +1,5 @@
-from flask import Flask, send_file, redirect,  render_template, request, Response
-import os, time
+from flask import Flask, send_file, redirect,  render_template, request
+import os
 
 '''
 #For running on android phone uncomment below lines an turn on hotspot on your android phone then start this script on pydroid
