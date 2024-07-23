@@ -18,7 +18,7 @@ def get_ip_address(ifname):
 print(f" * Running on http://{get_ip_address(b'wlan0')}:5000")
 '''
 root_path = os.getcwd()
-abs_path = 'C:/Users/ep/Desktop/test' #'/storage/emulated/0/Download'
+abs_path = '/home/ep' #'/storage/emulated/0/Download'
 
 app = Flask(__name__, static_url_path='/static', static_folder = root_path, template_folder = root_path)
 
