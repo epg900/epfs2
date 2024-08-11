@@ -1,6 +1,8 @@
 from flask import Flask, send_file, redirect,  render_template, request
 import os
 
+
+
 '''
 #For running on android phone uncomment below lines an turn on hotspot on your android phone then start this script on pydroid
 import socket, fcntl, struct
@@ -16,7 +18,7 @@ def get_ip_address(ifname):
 print(f" * Running on http://{get_ip_address(b'wlan0')}:5000")
 '''
 root_path = os.getcwd()
-abs_path = '/home/ep' #'/storage/emulated/0/Download'
+abs_path = 'C:/Users/ep/Desktop/epfs2' #'/home/ep' #'/storage/emulated/0/Download'
 dir_list = []
 file_list = []
 video_list = []
@@ -79,6 +81,18 @@ def dir_listing(path):
         
     else:
         return send_file(os.path.join(abs_path,path), conditional = True)
+
+'''
+import pyotp
+
+@app.route('/rm/<code>/<filename>')
+def rm_file(code,filename):
+    otp_chk = pyotp.TOTP('')
+    file = filename.replace('_','/')
+    if otp_chk.now() == code:
+        os.remove(f'{abs_path}/{file}')
+    return redirect('/')
+'''
 
 @app.route('/uploader' , methods = ['GET', 'POST'])
 def uploader():
