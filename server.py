@@ -85,12 +85,11 @@ def dir_listing(path):
 '''
 import pyotp
 
-@app.route('/rm/<code>/<filename>')
-def rm_file(code,filename):
+@app.route('/rm/<code>/<path:path>')
+def rm_file(code,path):
     otp_chk = pyotp.TOTP('')
-    file = filename.replace('_','/')
     if otp_chk.now() == code:
-        os.remove(f'{abs_path}/{file}')
+        os.remove(f'{abs_path}/{path}')
     return redirect('/')
 '''
 
