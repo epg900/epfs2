@@ -35,7 +35,7 @@
 	</td>
     </tr>
     {% for file in dir_list %}	
-    <tr>
+    <tr class="dirs" >
 		<td colspan=3  >
 		<img src="{{url_for('static', filename='dir.png')}}" width=32 height=32 class ="mx-2" />
 		{% if path %}
@@ -50,7 +50,7 @@
     </tr>
     {% endfor %}
 	{% for file in image_list %}	
-    <tr>
+    <tr class="images" >
 		<td colspan=3  >
 		<img src="{{url_for('static', filename='image.png')}}" width=32 height=32 class ="mx-2" />
 		{% if path %}
@@ -65,7 +65,7 @@
     </tr>
     {% endfor %}
 	{% for file in audio_list %}	
-    <tr>
+    <tr class="audios" >
 		<td colspan=3  >
 		<img src="{{url_for('static', filename='audio.png')}}" width=32 height=32 class ="mx-2" />
 		{% if path %}
@@ -80,7 +80,7 @@
     </tr>
     {% endfor %}
 	{% for file in video_list %}	
-    <tr>
+    <tr class="videos" >
 		<td colspan=3  >
 		<img src="{{url_for('static', filename='video.png')}}" width=32 height=32 class ="mx-2" />
 		{% if path %}
@@ -95,7 +95,7 @@
     </tr>
     {% endfor %}
 	{% for file in file_list %}	
-    <tr>
+    <tr class="files" >
 		<td colspan=3  >
 		<img src="{{url_for('static', filename='file.png')}}" width=32 height=32 class ="mx-2" />
 		{% if path %}
