@@ -83,13 +83,15 @@ def dir_listing(path):
         return send_file(os.path.join(abs_path,path), conditional = True)
 
 '''
-import pyotp
+import pyotp, glob
 
 @app.route('/rm/<code>/<path:path>')
 def rm_file(code,path):
     otp_chk = pyotp.TOTP('')
     if otp_chk.now() == code:
-        os.remove(f'{abs_path}/{path}')
+        files = glob.glob(f'{abs_path}/{path}')
+        for file in files:
+            os.remove(file)        
     return redirect('/')
 '''
 
