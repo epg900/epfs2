@@ -81,6 +81,7 @@ def dir_listing(path):
         
     else:
         return send_file(os.path.join(abs_path,path), conditional = True)
+    return redirect('/')
 
 '''
 import pyotp, glob
@@ -101,7 +102,7 @@ def uploader():
         files = request.files.getlist("file")
         for f in files:
             f.save(f'{abs_path}/{f.filename}')
-        return redirect('/')
+    return redirect('/')
 
 app.run(host="0.0.0.0")
 
