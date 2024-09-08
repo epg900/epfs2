@@ -103,21 +103,5 @@ def uploader():
             f.save(f'{abs_path}/{f.filename}')
         return redirect('/')
 
-@app.route('/config' , methods = ['GET', 'POST'])
-def config():
-    if request.method == 'POST':
-        f = request.files['file']
-        f.save(f'{abs_path}/{f.filename}')
-    return redirect('/')
-
-@app.route('/video' , methods = ['GET', 'POST'])
-def video():
-    if request.method == 'POST':
-        f = request.files['file']
-        if os.path.exists(f'{abs_path}/vid.mp4'):
-            os.remove(f'{abs_path}/vid.mp4')
-        f.save(f'{abs_path}/vid.mp4')
-    return redirect('/vid.mp4')
-
 app.run(host="0.0.0.0")
 
