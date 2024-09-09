@@ -15,10 +15,10 @@
 </style>
 </head>
 <body>
-
+<!-- <div class="container-fluid">-->
 <table class="table table-striped table-hover">
 <tbody>
-    <tr>
+    <tr>	
         <form action = "/uploader" method = "POST" enctype = "multipart/form-data" >
         <td>
             <input class="form-control"  type="file" name="file" id="file" multiple />
@@ -26,7 +26,24 @@
         <td>
             <input class="btn btn-success" type = "button" onclick="ax();" value="Upload File" />
         </td>
+		</form>
     </tr>
+	
+	<tr>	
+		<td  colspan=3>
+		<input id="ch1" class="form-check-input"  type='checkbox' onchange='viewItem(".dirs",this.checked);' checked>
+		<label  class="form-check-label" for="ch1">Directory</label>
+		<input id="ch2" class="form-check-input"  type='checkbox' onchange='viewItem(".images",this.checked);' checked>
+		<label  class="form-check-label" for="ch2">Images</label></div>
+		<input id="ch3" class="form-check-input"  type='checkbox' onchange='viewItem(".videos",this.checked);' checked>
+		<label  class="form-check-label" for="ch3">Videos</label>
+		<input id="ch4" class="form-check-input"  type='checkbox' onchange='viewItem(".audios",this.checked);' checked>
+		<label  class="form-check-label" for="ch4">Audios</label>
+		<input id="ch5" class="form-check-input"  type='checkbox' onchange='viewItem(".files",this.checked);' checked>
+		<label  class="form-check-label" for="ch5">Files</label>
+		</td>	
+	</tr>
+	
     <tr>
     <td colspan=3 >
     <div id="pbar0" name="pbar0"  class="progress" style="display:none;">
@@ -34,6 +51,7 @@
     </div>
 	</td>
     </tr>
+	
     {% for file in dir_list %}	
     <tr class="dirs" >
 		<td colspan=3  >
@@ -146,7 +164,13 @@ function ax(){
     request.send(fd);
 }
 
+function viewItem(res,val) {
+const list = document.querySelectorAll(res);
+for (const item of list) {
+  item.hidden = !val
+}
+}
 </script>
-
+<!--</div>-->
 </body>
 </html>
