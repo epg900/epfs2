@@ -39,8 +39,11 @@
 		<label  class="form-check-label" for="ch3">Videos</label>
 		<input id="ch4" class="form-check-input"  type='checkbox' onchange='viewItem(".audios",this.checked);' checked>
 		<label  class="form-check-label" for="ch4">Audios</label>
-		<input id="ch5" class="form-check-input"  type='checkbox' onchange='viewItem(".files",this.checked);' checked>
-		<label  class="form-check-label" for="ch5">Files</label>
+		<input id="ch5" class="form-check-input"  type='checkbox' onchange='viewItem(".pdf",this.checked);' checked>
+		<label  class="form-check-label" for="ch5">PDF</label>
+		<input id="ch6" class="form-check-input"  type='checkbox' onchange='viewItem(".files",this.checked);' checked>
+		<label  class="form-check-label" for="ch6">Files</label>
+		
 		</td>	
 	</tr>
 	
@@ -101,6 +104,21 @@
     <tr class="videos" >
 		<td colspan=3  >
 		<img src="{{url_for('static', filename='video.png')}}" width=32 height=32 class ="mx-2" />
+		{% if path %}
+		<a href="{{ request.args['website'] }}/{{ path }}/{{ file }}" >
+		{% else %}
+		<a href="{{ request.args['website'] }}/{{ file }}" >
+		{% endif %}
+		{{ file }}  
+		</a>
+        </td>		
+        
+    </tr>
+    {% endfor %}
+	{% for file in pdf_list %}	
+    <tr class="pdf" >
+		<td colspan=3  >
+		<img src="{{url_for('static', filename='pdf.png')}}" width=32 height=32 class ="mx-2" />
 		{% if path %}
 		<a href="{{ request.args['website'] }}/{{ path }}/{{ file }}" >
 		{% else %}
