@@ -24,6 +24,7 @@ file_list = []
 video_list = []
 audio_list = []
 image_list = []
+pdf_list = []
 
 app = Flask(__name__, static_url_path='/static', static_folder = root_path, template_folder = root_path)
 
@@ -37,6 +38,7 @@ def index():
     video_list.clear()
     audio_list.clear()
     image_list.clear()
+    pdf_list.clear()
     
     for f in files:
         if os.path.isdir(f'{abs_path}/{f}'):
@@ -49,9 +51,11 @@ def index():
                 audio_list.append(f)
             elif  [x for x in ['mp4','mkv','mpg','mpeg','avi'] if x in filetype[1]]:
                 video_list.append(f)
+            elif  [x for x in ['pdf'] if x in filetype[1]]:
+                pdf_list.append(f)
             else:
                 file_list.append(f)
-    return render_template('index.html', path="", dir_list=dir_list, file_list=file_list, image_list=image_list, audio_list=audio_list, video_list=video_list)
+    return render_template('index.html', path="", dir_list=dir_list, file_list=file_list, pdf_list=pdf_list, image_list=image_list, audio_list=audio_list, video_list=video_list)
     
 @app.route('/<path:path>')
 def dir_listing(path):
@@ -63,6 +67,7 @@ def dir_listing(path):
         video_list.clear()
         audio_list.clear()
         image_list.clear()
+        pdf_list.clear()
         
         for f in files:
             if os.path.isdir(f'{abs_path}/{path}/{f}'):
@@ -75,9 +80,11 @@ def dir_listing(path):
                     audio_list.append(f)
                 elif  [x for x in ['mp4','mkv','mpg','mpeg','avi'] if x in filetype[1]]:
                     video_list.append(f)
+                elif  [x for x in ['pdf'] if x in filetype[1]]:
+                    pdf_list.append(f)
                 else:
                     file_list.append(f)
-        return render_template('index.html', path=path , dir_list=dir_list, file_list=file_list, image_list=image_list, audio_list=audio_list, video_list=video_list)
+        return render_template('index.html', path=path , dir_list=dir_list, file_list=file_list, pdf_list=pdf_list, image_list=image_list, audio_list=audio_list, video_list=video_list)
         
     else:
         return send_file(os.path.join(abs_path,path), conditional = True)
