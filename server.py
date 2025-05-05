@@ -1,8 +1,6 @@
 from flask import Flask, send_file, redirect,  render_template, request
 import os
 
-
-
 '''
 #For running on android phone uncomment below lines an turn on hotspot on your android phone then start this script on pydroid
 import socket, fcntl, struct
@@ -17,74 +15,51 @@ def get_ip_address(ifname):
 
 print(f" * Running on http://{get_ip_address(b'wlan0')}:5000")
 '''
-root_path = os.getcwd()
-abs_path =  '/root' #'/storage/emulated/0/Download' , 'C:/Users/ep/Desktop/epfs2/epfs2'
-dir_list = []
-file_list = []
-video_list = []
-audio_list = []
-image_list = []
-pdf_list = []
 
+root_path = os.getcwd()
+abs_path =  '/storage/emulated/0/Download' #'/root'  , 'C:/Users/e.pishvaz/Desktop/epfs2'
+
+
+def retlist(path=""):
+    all_list = []
+    for i in range(0,7):
+        all_list.append([])
+
+    new_path = os.path.join(abs_path,path)    
+    files = os.listdir(os.path.join(abs_path,path))
+        
+    files.sort()
+    for f in files:
+        if os.path.isdir(os.path.join(new_path,f)):
+            all_list[0].append(f)
+        if os.path.isfile(os.path.join(new_path,f)):
+            filetype = os.path.splitext(os.path.join(new_path,f))
+            if  [x for x in ['jpg','png','bmp','jpeg','gif'] if x in filetype[1]]:
+                all_list[1].append(f)
+            elif  [x for x in ['mp3','wav'] if x in filetype[1]]:
+                all_list[2].append(f)
+            elif  [x for x in ['mp4','mkv','mpg','mpeg','avi'] if x in filetype[1]]:
+                all_list[3].append(f)
+            elif  [x for x in ['pdf'] if x in filetype[1]]:
+                all_list[4].append(f)
+            else:
+                all_list[5].append(f)
+    return all_list
+
+
+    
 app = Flask(__name__, static_url_path='/static', static_folder = root_path, template_folder = root_path)
 
 @app.route('/')
 def index():
-    files = os.listdir(abs_path)
-    files.sort()
-    
-    dir_list.clear()
-    file_list.clear()
-    video_list.clear()
-    audio_list.clear()
-    image_list.clear()
-    pdf_list.clear()
-    
-    for f in files:
-        if os.path.isdir(f'{abs_path}/{f}'):
-            dir_list.append(f)
-        if os.path.isfile(f'{abs_path}/{f}'):
-            filetype = os.path.splitext(f'{abs_path}/{f}')
-            if  [x for x in ['jpg','png','bmp','jpeg','gif'] if x in filetype[1]]:
-                image_list.append(f)
-            elif  [x for x in ['mp3','wav'] if x in filetype[1]]:
-                audio_list.append(f)
-            elif  [x for x in ['mp4','mkv','mpg','mpeg','avi'] if x in filetype[1]]:
-                video_list.append(f)
-            elif  [x for x in ['pdf'] if x in filetype[1]]:
-                pdf_list.append(f)
-            else:
-                file_list.append(f)
-    return render_template('index.html', path="", dir_list=dir_list, file_list=file_list, pdf_list=pdf_list, image_list=image_list, audio_list=audio_list, video_list=video_list)
+    lst = retlist()
+    return render_template('index.html', path = "", all_list = lst )
     
 @app.route('/<path:path>')
 def dir_listing(path):
-    if os.path.isdir(f'{abs_path}/{path}'):
-        files = os.listdir(os.path.join(abs_path,path))
-        files.sort()
-        dir_list.clear()
-        file_list.clear()
-        video_list.clear()
-        audio_list.clear()
-        image_list.clear()
-        pdf_list.clear()
-        
-        for f in files:
-            if os.path.isdir(f'{abs_path}/{path}/{f}'):
-                dir_list.append(f)
-            if os.path.isfile(f'{abs_path}/{path}/{f}'):
-                filetype = os.path.splitext(f'{abs_path}/{path}/{f}')
-                if  [x for x in ['jpg','png','bmp','jpeg','gif'] if x in filetype[1]]:
-                    image_list.append(f)
-                elif  [x for x in ['mp3','wav'] if x in filetype[1]]:
-                    audio_list.append(f)
-                elif  [x for x in ['mp4','mkv','mpg','mpeg','avi'] if x in filetype[1]]:
-                    video_list.append(f)
-                elif  [x for x in ['pdf'] if x in filetype[1]]:
-                    pdf_list.append(f)
-                else:
-                    file_list.append(f)
-        return render_template('index.html', path=path , dir_list=dir_list, file_list=file_list, pdf_list=pdf_list, image_list=image_list, audio_list=audio_list, video_list=video_list)
+    if os.path.isdir(f'{abs_path}/{path}'):        
+        lst = retlist(path)
+        return render_template('index.html', path=path , all_list = lst  )
         
     else:
         return send_file(os.path.join(abs_path,path), conditional = True)
