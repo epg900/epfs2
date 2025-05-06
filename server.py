@@ -17,7 +17,7 @@ print(f" * Running on http://{get_ip_address(b'wlan0')}:5000")
 '''
 
 root_path = os.getcwd()
-abs_path =  'C:/Users/e.pishvaz/Desktop' #'/storage/emulated/0/Download' #'/root'  , 'C:/Users/e.pishvaz/Desktop/epfs2'
+abs_path =  '/storage/emulated/0/Download' #'/root'  , 'C:/Users/e.pishvaz/Desktop/epfs2'
 
 
 def retlist(path=""):
