@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="epfsbot file share">
 
-    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='file/bootstrap.min.css')}}">
       <title>epfs file share</title>
 <style>
 	tr {
@@ -59,7 +59,7 @@
 	{% for b in a %}
     <tr class="{% if ploop.index == 1 %}dirs{% elif ploop.index == 2 %}images{% elif ploop.index == 3 %}audios{% elif ploop.index == 4 %}videos{% elif ploop.index == 5 %}pdfs{% else %}files{% endif %}" >
 		<td colspan=3  >
-		<img src="/static/{% if ploop.index == 1 %}dir{% elif ploop.index == 2 %}image{% elif ploop.index == 3 %}audio{% elif ploop.index == 4 %}video{% elif ploop.index == 5 %}pdf{% else %}file{% endif %}.png" width=32px height=32px class="mx-2"  />
+		<img src="/static/file/{% if ploop.index == 1 %}dir{% elif ploop.index == 2 %}image{% elif ploop.index == 3 %}audio{% elif ploop.index == 4 %}video{% elif ploop.index == 5 %}pdf{% else %}file{% endif %}.png" width=32px height=32px class="mx-2"  />
 		{% if path %}
 		<a href="{{ request.args['website'] }}/{{ path }}/{{ b }}" >
 		{% else %}
@@ -74,7 +74,7 @@
   </tbody>
 </table>
 
-<script src="{{url_for('static', filename='bootstrap.bundle.min.js')}}" ></script>
+<script src="{{url_for('static', filename='file/bootstrap.bundle.min.js')}}" ></script>
 <script  type="text/javascript" >
 
 function ax(){
