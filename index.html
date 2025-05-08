@@ -31,19 +31,10 @@
 	
 	<tr>	
 		<td  colspan=3>
-		<input id="ch1" class="form-check-input"  type='checkbox' onchange='viewItem(".dirs",this.checked);' checked>
-		<label  class="form-check-label" for="ch1">Directory</label>
-		<input id="ch2" class="form-check-input"  type='checkbox' onchange='viewItem(".images",this.checked);' checked>
-		<label  class="form-check-label" for="ch2">Images</label></div>
-		<input id="ch3" class="form-check-input"  type='checkbox' onchange='viewItem(".videos",this.checked);' checked>
-		<label  class="form-check-label" for="ch3">Videos</label>
-		<input id="ch4" class="form-check-input"  type='checkbox' onchange='viewItem(".audios",this.checked);' checked>
-		<label  class="form-check-label" for="ch4">Audios</label>
-		<input id="ch5" class="form-check-input"  type='checkbox' onchange='viewItem(".pdfs",this.checked);' checked>
-		<label  class="form-check-label" for="ch5">PDF</label>
-		<input id="ch6" class="form-check-input"  type='checkbox' onchange='viewItem(".files",this.checked);' checked>
-		<label  class="form-check-label" for="ch6">Files</label>
-		
+		{% for i in varlist %}
+		<input id="ch1" class="form-check-input"  type='checkbox' onchange='viewItem(".{{ i }}",this.checked);' checked>
+		<label  class="form-check-label" for="ch1">{{ i }}</label>
+		{% endfor %}		
 		</td>	
 	</tr>
 	
@@ -57,9 +48,9 @@
 	{% for a in all_list %}
 	{% set ploop = loop %}
 	{% for b in a %}
-    <tr class="{% if ploop.index == 1 %}dirs{% elif ploop.index == 2 %}images{% elif ploop.index == 3 %}audios{% elif ploop.index == 4 %}videos{% elif ploop.index == 5 %}pdfs{% else %}files{% endif %}" >
-		<td colspan=3  >
-		<img src="/static/file/{% if ploop.index == 1 %}dir{% elif ploop.index == 2 %}image{% elif ploop.index == 3 %}audio{% elif ploop.index == 4 %}video{% elif ploop.index == 5 %}pdf{% else %}file{% endif %}.png" width=32px height=32px class="mx-2"  />
+    <tr class="{{ varlist[ploop.index - 1] }}" >
+		<td colspan=3 >
+		<img src="/static/file/{{ varlist[ploop.index - 1] }}.png" width=32px height=32px class="mx-2"  />
 		{% if path %}
 		<a href="{{ request.args['website'] }}/{{ path }}/{{ b }}" >
 		{% else %}

@@ -18,7 +18,7 @@ print(f" * Running on http://{get_ip_address(b'wlan0')}:5000")
 
 root_path = os.getcwd()
 abs_path =  '/storage/emulated/0/Download' #'/root'  , 'C:/Users/e.pishvaz/Desktop/epfs2'
-
+varlist = ['folder','image','audio','video','pdf','file']
 
 def retlist(path=""):
     all_list = []
@@ -53,13 +53,13 @@ app = Flask(__name__, static_url_path='/static', static_folder = root_path, temp
 @app.route('/')
 def index():
     lst = retlist()
-    return render_template('index.html', path = "", all_list = lst )
+    return render_template('index.html', path = "", all_list = lst , varlist = varlist )
     
 @app.route('/<path:path>')
 def dir_listing(path):
     if os.path.isdir(f'{abs_path}/{path}'):        
         lst = retlist(path)
-        return render_template('index.html', path=path , all_list = lst  )
+        return render_template('index.html', path=path , all_list = lst , varlist = varlist  )
         
     else:
         return send_file(os.path.join(abs_path,path), conditional = True)
